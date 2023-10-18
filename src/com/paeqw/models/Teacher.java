@@ -7,6 +7,6 @@ public class Teacher extends Person{
 
     @Override
     public void introduceYourself() {
-
+        System.out.println("jestem nauczyciel " + this.getFirstName() + " " + this.getLastName());
     }
 }

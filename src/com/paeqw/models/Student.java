@@ -8,6 +8,6 @@ public class Student extends Person{
 
     @Override
     public void introduceYourself() {
-
+        System.out.println("jestem uczeń " + this.getFirstName() + " " + this.getLastName());
     }
 }
