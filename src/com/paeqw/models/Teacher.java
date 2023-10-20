@@ -1,8 +1,11 @@
 package com.paeqw.models;
 
 public class Teacher extends Person{
-    public Teacher(String firstName, String lastName) {
+    private boolean isSupervisor;
+
+    public Teacher(String firstName, String lastName, boolean isSupervisor) {
         super(firstName, lastName);
+        this.isSupervisor = isSupervisor;
     }
 
     @Override

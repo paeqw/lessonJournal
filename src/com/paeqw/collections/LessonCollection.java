@@ -17,4 +17,5 @@ public class LessonCollection {
     private void addLesson(Lesson lesson) {
         allLessons.add(lesson);
     }
+
 }

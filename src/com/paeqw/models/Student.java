@@ -1,9 +1,11 @@
 package com.paeqw.models;
 
 public class Student extends Person{
+    private Class studentClass;
 
-    public Student(String firstName, String lastName) {
+    public Student(String firstName, String lastName, Class studentClass) {
         super(firstName, lastName);
+        this.studentClass = studentClass;
     }
 
     @Override
