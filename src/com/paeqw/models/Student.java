@@ -7,7 +7,6 @@ public class Student extends Person{
         super(firstName, lastName);
         this.studentClass = studentClass;
     }
-
     @Override
     public void introduceYourself() {
         System.out.println("jestem uczeń " + this.getFirstName() + " " + this.getLastName());
