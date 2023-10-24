@@ -2,9 +2,17 @@ package com.paeqw.collections;
 
 import com.paeqw.exceptions.CouldNotFind;
 import com.paeqw.models.Person;
+import com.paeqw.models.Student;
+import com.paeqw.models.Teacher;
 
+import java.util.ArrayList;
 import java.util.List;
-
+/*
+* metoda wypisujaca wszystkich wychowawców
+*
+*
+*
+* */
 public class PersonCollection {
     private List<Person> allPersons;
 
@@ -24,6 +32,34 @@ public class PersonCollection {
             if(person.getFirstName().equals(firstname) && person.getLastName().equals(lastname)) return person;
         }
         throw new CouldNotFind("could not find person with given name and lastname");
+    }
+    public List<Student> getAllStudents() {
+        List<Student> list = new ArrayList<>();
+        for (int i = 0; i < allPersons.size(); i++) {
+            if(allPersons.get(i).getClass() == Student.class) {
+                list.add((Student) allPersons.get(i));
+            }
+        }
+		return list;
+	}
+    public List<Teacher> getAllTeachers() {
+        List<Teacher> list = new ArrayList<>();
+        for (int i = 0; i < allPersons.size(); i++) {
+            if(allPersons.get(i).getClass() == Teacher.class) {
+                list.add((Teacher) allPersons.get(i));
+            }
+        }
+        return list;
+    }
+    public List<Teacher> getAllSupervisingTeachers() {
+        List<Teacher> list = new ArrayList<>();
+        for (int i = 0; i < allPersons.size(); i++) {
+            if(allPersons.get(i).getClass() == Teacher.class) {
+                Teacher t = (Teacher) allPersons.get(i);
+                if(t.isSupervisor()) list.add(t);
+            }
+        }
+        return list;
     }
     public boolean removePerson(String firstname, String lastname) throws CouldNotFind {
         return allPersons.remove(searchPerson(firstname, lastname));

@@ -8,8 +8,12 @@ public class Teacher extends Person{
         this.isSupervisor = isSupervisor;
     }
 
+    public boolean isSupervisor() {
+        return isSupervisor;
+    }
+
     @Override
     public void introduceYourself() {
-        System.out.println("jestem nauczyciel " + this.getFirstName() + " " + this.getLastName());
+        System.out.println("jestem nauczycielem " + this.getFirstName() + " " + this.getLastName());
     }
 }

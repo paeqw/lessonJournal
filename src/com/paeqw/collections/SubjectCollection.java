@@ -35,7 +35,7 @@ public class SubjectCollection {
             Teacher t = l.getTeacher();
             if(t.getFirstName().equals(teacherName) && t.getLastName().equals(teacherSurname)) list.add(l);
         }
-        if (list.size() != 0) return list;
+        if (!list.isEmpty()) return list;
         throw new CouldNotFind("could not find subjects with that teacher");
     }
     public boolean removeSubject(String name) throws CouldNotFind {
