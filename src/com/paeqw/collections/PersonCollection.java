@@ -8,7 +8,7 @@ import com.paeqw.models.Teacher;
 import java.util.ArrayList;
 import java.util.List;
 /*
-* metoda wypisujaca wszystkich wychowawców
+*
 *
 *
 *
@@ -44,19 +44,19 @@ public class PersonCollection {
 	}
     public List<Teacher> getAllTeachers() {
         List<Teacher> list = new ArrayList<>();
-        for (int i = 0; i < allPersons.size(); i++) {
-            if(allPersons.get(i).getClass() == Teacher.class) {
-                list.add((Teacher) allPersons.get(i));
+        for (Person allPerson : allPersons) {
+            if (allPerson.getClass() == Teacher.class) {
+                list.add((Teacher) allPerson);
             }
         }
         return list;
     }
     public List<Teacher> getAllSupervisingTeachers() {
         List<Teacher> list = new ArrayList<>();
-        for (int i = 0; i < allPersons.size(); i++) {
-            if(allPersons.get(i).getClass() == Teacher.class) {
-                Teacher t = (Teacher) allPersons.get(i);
-                if(t.isSupervisor()) list.add(t);
+        for (Person allPerson : allPersons) {
+            if (allPerson.getClass() == Teacher.class) {
+                Teacher t = (Teacher) allPerson;
+                if (t.isSupervisor()) list.add(t);
             }
         }
         return list;

@@ -1,6 +1,8 @@
 package com.paeqw.models;
 
-public abstract class Person {
+import com.paeqw.interfaces.Sortable;
+
+public abstract class Person implements Sortable {
     private String firstName;
     private String lastName;
 
@@ -20,6 +22,9 @@ public abstract class Person {
     public String getLastName() {
         return lastName;
     }
+
+    @Override
+    public abstract int compare(Sortable other);
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
