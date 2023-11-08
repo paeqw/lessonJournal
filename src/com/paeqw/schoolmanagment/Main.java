@@ -19,7 +19,7 @@ public class Main {
         Map<DayOfWeek, Map<Integer,Subject>> plan = new HashMap<>();
         Map<Integer,Subject> mondayLessons = new HashMap<>();
         mondayLessons.put(0,new Subject("programowanie aplikacji internetowych", gj));
-        mondayLessons.put(0,new Subject("programowanie obiekowe", mw));
+        mondayLessons.put(1,new Subject("programowanie obiekowe", mw));
         plan.put(Monday,mondayLessons);
         Class fourbt = new Class("4bt",gj,plan);
 
@@ -33,8 +33,5 @@ public class Main {
 //        for (var per: pc.getAllSupervisingTeachers()) {
 //            System.out.println(per.getFirstName());
 //        }
-
-
-
     }
 }

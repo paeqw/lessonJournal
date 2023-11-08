@@ -20,7 +20,6 @@ public class Student extends Person{
     @Override
     public int compare(Sortable other) {
         if (other instanceof Person otherPerson) {
-
             int fNComparison = this.getFirstName().compareTo(otherPerson.getFirstName());
             if (fNComparison == 0) {
                 int lNComparison = this.getLastName().compareTo(otherPerson.getLastName());
