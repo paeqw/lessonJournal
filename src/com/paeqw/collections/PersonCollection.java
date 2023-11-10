@@ -4,15 +4,9 @@ import com.paeqw.exceptions.CouldNotFind;
 import com.paeqw.models.Person;
 import com.paeqw.models.Student;
 import com.paeqw.models.Teacher;
-
 import java.util.ArrayList;
 import java.util.List;
-/*
-*
-*
-*
-*
-* */
+
 public class PersonCollection {
     private List<Person> allPersons;
 

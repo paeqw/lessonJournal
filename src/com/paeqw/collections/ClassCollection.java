@@ -2,7 +2,6 @@ package com.paeqw.collections;
 
 import com.paeqw.exceptions.CouldNotFind;
 import com.paeqw.models.Class;
-
 import java.util.List;
 
 public class ClassCollection {

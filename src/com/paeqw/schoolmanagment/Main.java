@@ -1,20 +1,8 @@
 package com.paeqw.schoolmanagment;
 
-import com.paeqw.collections.PersonCollection;
-import com.paeqw.enums.DayOfWeek;
-import com.paeqw.models.*;
-import com.paeqw.models.Class;
+/*
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static com.paeqw.enums.DayOfWeek.*;
-
-public class Main {
-    public static void main(String[] args) {
-        Teacher gj = new Teacher("Grzegorz", "Janczy", true);
+ Teacher gj = new Teacher("Grzegorz", "Janczy", true);
         Teacher mw = new Teacher("Marek", "Wrona", false);
         Map<DayOfWeek, Map<Integer,Subject>> plan = new HashMap<>();
         Map<Integer,Subject> mondayLessons = new HashMap<>();
@@ -30,8 +18,40 @@ public class Main {
         listPerson.add(mw);
         listPerson.add(gj);
         PersonCollection pc = new PersonCollection(listPerson);
-//        for (var per: pc.getAllSupervisingTeachers()) {
-//            System.out.println(per.getFirstName());
-//        }
+        for (var per: pc.getAllStudents()) {
+            System.out.println(per.getFirstName());
+        }
+
+*/
+
+
+
+import com.paeqw.collections.PersonCollection;
+import com.paeqw.enums.DayOfWeek;
+import com.paeqw.models.*;
+import com.paeqw.models.Class;
+import com.paeqw.utils.InputHandler;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static com.paeqw.enums.DayOfWeek.*;
+
+public class Main {
+    public static void main(String[] args) {
+        try {
+            InputHandler inputHandler = new InputHandler();
+            int choice;
+            do {
+                System.out.println("abcd");
+
+                choice = inputHandler.getInt("input your choice");
+            } while(choice != -1);
+        } catch (NumberFormatException e) {
+            System.err.println(e.getMessage());
+        }
+
     }
 }

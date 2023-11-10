@@ -16,8 +16,7 @@ public class Class {
         this.supervisingTeacher = supervisingTeacher;
         this.lessonPlan = lessonPlan;
     }
-
-
+    
     public String getName() {
         return name;
     }
