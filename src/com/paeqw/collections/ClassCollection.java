@@ -11,7 +11,7 @@ public class ClassCollection {
         this.allClasses = classList;
     }
 
-    public List<Class> getClassList() {
+    public List<Class> getAllClasses() {
         return allClasses;
     }
     public void addClass(Class schoolClass) {

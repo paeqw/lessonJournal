@@ -18,7 +18,7 @@ public class SubjectCollection {
         return allSubjects;
     }
 
-    private void addSubject(Subject subject) {
+    public void addSubject(Subject subject) {
         allSubjects.add(subject);
     }
 
