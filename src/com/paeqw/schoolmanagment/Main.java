@@ -10,7 +10,6 @@ import com.paeqw.models.*;
 import com.paeqw.models.Class;
 import com.paeqw.utils.InputHandler;
 import com.paeqw.utils.InputValidator;
-import static com.paeqw.enums.DayOfWeek.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -174,7 +173,50 @@ public class Main {
                         System.out.println();
 
                         switch (x) {
+                            // 1. Modify person
+                            case 1 -> {
+                                String firstname = inputHandler.getString("Input firstname of the person you wanna modify");
+                                String lastname = inputHandler.getString("Input lastname of the person you wanna modify");
 
+                                Person foundPerson = personCollection.searchPerson(firstname,lastname);
+                                System.out.println("Person you wanna modify is :" + firstname + " " + lastname);
+
+                                System.out.println("What do you wanna modify? \n 1. Firstname, lastname \n 2. Firstname \n 3. Lastname");
+
+                                int ch = inputHandler.getInt("Your choice");
+
+                                switch (ch) {
+                                    case 1 -> {
+                                        String newFirstname = inputHandler.getString("New firstname is");
+                                        String newLastname = inputHandler.getString("New lastname is");
+                                        foundPerson.setFirstName(newFirstname);
+                                        foundPerson.setLastName(newLastname);
+                                        System.out.println("Succesfully modified that person");
+                                    }
+                                    case 2 -> {
+                                        String newFirstname = inputHandler.getString("New firstname is");
+                                        foundPerson.setFirstName(newFirstname);
+                                        System.out.println("Succesfully modified that person");
+                                    }
+                                    case 3 -> {
+                                        String newLastname = inputHandler.getString("New lastname is");
+                                        foundPerson.setLastName(newLastname);
+                                        System.out.println("Succesfully modified that person");
+                                    }
+                                    default -> System.err.println("Wrong choice");
+                                }
+
+                            }
+                            // 2. Modify class
+                            case 2 -> {
+                                String className = inputHandler.getString("Input name of the class you want to modify");
+
+                                Class classFound = classCollection.searchClass(className);
+
+                                System.out.println("Class you wanna modify is: " + className);
+                                System.out.println("What do you wanna modify? \n 1. Class name \n 2. Supervising teacher");
+
+                            }
                         }
 
                     }

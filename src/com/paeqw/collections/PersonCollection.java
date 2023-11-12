@@ -29,9 +29,9 @@ public class PersonCollection {
     }
     public List<Student> getAllStudents() {
         List<Student> list = new ArrayList<>();
-        for (int i = 0; i < allPersons.size(); i++) {
-            if(allPersons.get(i).getClass() == Student.class) {
-                list.add((Student) allPersons.get(i));
+        for (Person allPerson : allPersons) {
+            if (allPerson.getClass() == Student.class) {
+                list.add((Student) allPerson);
             }
         }
 		return list;

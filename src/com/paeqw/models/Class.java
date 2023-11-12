@@ -21,6 +21,12 @@ public class Class {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setSupervisingTeacher(Teacher supervisingTeacher) {
+        this.supervisingTeacher = supervisingTeacher;
+    }
     public Map<Integer,Subject> getLessonsOnSpecifiedDay(DayOfWeek day) {
         return lessonPlan.get(day);
     }
