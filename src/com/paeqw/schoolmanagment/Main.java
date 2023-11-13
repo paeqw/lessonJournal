@@ -215,6 +215,35 @@ public class Main {
 
                                 System.out.println("Class you wanna modify is: " + className);
                                 System.out.println("What do you wanna modify? \n 1. Class name \n 2. Supervising teacher");
+                                int c = inputHandler.getInt("Your choice");
+                                switch (c) {
+                                    case 1 -> {
+                                        String newClassName = inputHandler.getString("Input new class name");
+                                        classFound.setName(newClassName);
+                                        System.out.println("Succesfully modified class name");
+                                    }
+                                    case 2 -> {
+                                        System.out.println("1. Choose new teacher from list \n2. Create new teacher");
+                                        int choiceT = inputHandler.getInt("Your choice");
+                                        switch (choiceT) {
+                                            case 1 -> {
+                                                System.out.println();
+                                                int l = 0;
+                                                for (var el : personCollection.getAllTeachers()) {
+                                                    System.out.println(++l + ". " + el.getFirstName() + " " + el.getLastName());
+                                                }
+                                                System.out.println();
+                                                int pc = inputHandler.getInt();
+                                                if (pc - 1 > personCollection.getAllTeachers().size()) {
+                                                    System.err.println("There is not a teacher with that number");
+                                                } else {
+                                                    classFound.setSupervisingTeacher(personCollection.getAllNotSupervisingTeachers().get(pc));
+                                                }
+                                            }
+                                        }
+                                    }
+                                    default -> System.err.println("Wrong choice, choose number 1 or 2");
+                                }
 
                             }
                         }

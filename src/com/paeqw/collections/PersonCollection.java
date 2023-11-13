@@ -45,6 +45,17 @@ public class PersonCollection {
         }
         return list;
     }
+
+    public List<Teacher> getAllNotSupervisingTeachers() {
+        List<Teacher> list = new ArrayList<>();
+        for (Person allPerson : allPersons) {
+            if (allPerson.getClass() == Teacher.class) {
+                Teacher t = (Teacher) allPerson;
+                if (!t.isSupervisor()) list.add(t);
+            }
+        }
+        return list;
+    }
     public List<Teacher> getAllSupervisingTeachers() {
         List<Teacher> list = new ArrayList<>();
         for (Person allPerson : allPersons) {
