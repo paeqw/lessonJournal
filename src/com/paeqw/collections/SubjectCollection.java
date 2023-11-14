@@ -18,8 +18,8 @@ public class SubjectCollection {
         return allSubjects;
     }
 
-    public void addSubject(Subject subject) {
-        allSubjects.add(subject);
+    public void addSubject(Subject ...subject) {
+        allSubjects.addAll(List.of(subject));
     }
 
     public Subject searchSubjectByName(String name) throws CouldNotFind {

@@ -17,8 +17,8 @@ public class PersonCollection {
     public List<Person> getAllPersons() {
         return allPersons;
     }
-    private void addPerson(Person person) {
-        allPersons.add(person);
+    public void addPerson(Person ...person) {
+        allPersons.addAll(List.of(person));
     }
 
     public Person searchPerson(String firstname,String lastname) throws CouldNotFind {

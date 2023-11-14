@@ -19,7 +19,13 @@ public class Main {
             ClassCollection classCollection = new ClassCollection(new ArrayList<>());
             PersonCollection personCollection = new PersonCollection(new ArrayList<>());
             SubjectCollection subjectCollection = new SubjectCollection(new HashSet<>());
-            subjectCollection.addSubject(new Subject("example subject", new Teacher("exampleteacherfirstname", "exampleteacherlastname", false)));
+
+            Subject s1 = new Subject("Fizyka", new Teacher("exampleteacherfirstname", "exampleteacherlastname", false));
+            Subject s2 = new Subject("Matematyka", new Teacher("exampleteacherfirstname", "exampleteacherlastname", false));
+            Subject s3 = new Subject("Polski", new Teacher("exampleteacherfirstname", "exampleteacherlastname", false));
+
+            subjectCollection.addSubject(new Subject[]{s1, s2, s3});
+
             int choice;
             do {
                 System.out.println("1. Show...");
@@ -30,6 +36,7 @@ public class Main {
 
                 choice = inputHandler.getInt("Input your choice");
                 switch (choice) {
+                    // 1. Show...
                     case 1 -> {
                         System.out.println("1. Show all subjects");
                         System.out.println("2. Show all teachers");
@@ -46,7 +53,7 @@ public class Main {
                             case 1 -> {
                                 int c = 0;
                                 for (var el: subjectCollection.getAllSubjects()) {
-                                    System.out.println(++c + ". " + el.getName() + " teacher - "+ el.getTeacher().getFirstName());
+                                    System.out.println(++c + ". '" + el.getName() + "' - "+ el.getTeacher().getFirstName());
                                 }
                             }
                             // 2. Show all teachers
@@ -96,10 +103,11 @@ public class Main {
                                     System.out.println(++c + " " + el.getName());
                                 }
                             }
-                            default -> System.out.println("wrong choice, enter number between 1 - 7");
+                            default -> System.out.println("wrong choice");
                         }
                         System.out.println();
                     }
+                    // 2. Delete...
                     case 2 -> {
                         System.out.println("1. Delete a person");
                         System.out.println("2. Delete class");
@@ -161,13 +169,16 @@ public class Main {
                                 }
                             }
                         }
+//arr.add(new Pacjet("Imie", "nazwisko"))
 
+                        //public void dodaj(Room ...room) {lista.add(room)}
+                        //surgeon.dodaj({new Room("13"), new Room(), new Room})
                     }
+                    // 3. Modify...
                     case 3 -> {
                         System.out.println("1. Modify person");
                         System.out.println("2. Modify class");
                         System.out.println("3. Modify subject");
-                        System.out.println("4. Modify lesson plan for given class");
 
                         int x = inputHandler.getInt("Your choice");
                         System.out.println();
@@ -240,26 +251,115 @@ public class Main {
                                                     classFound.setSupervisingTeacher(personCollection.getAllNotSupervisingTeachers().get(pc));
                                                 }
                                             }
+                                            case 2 -> {
+                                                String firstname = inputHandler.getString("Input firstname of the teacher you wanna create");
+                                                String lastname = inputHandler.getString("Input lastname of the teacher you wanna create");
+                                                Teacher t = new Teacher(firstname,lastname,true);
+                                                personCollection.addPerson(t);
+                                                classFound.setSupervisingTeacher(t);
+                                                System.out.println("Succesfully changed supervising teacher for class " + classFound.getName());
+                                            }
+                                            default -> System.err.println("Wrong choice");
                                         }
                                     }
-                                    default -> System.err.println("Wrong choice, choose number 1 or 2");
+                                    default -> System.err.println("Wrong choice");
                                 }
 
                             }
+                            // 3. Modify subject
+                            case 3 -> {
+                                String subjectName = inputHandler.getString("Enter name of the subject you wanna modify");
+
+                                Subject foundSubject = subjectCollection.searchSubjectByName(subjectName);
+
+                                System.out.println("Succesfully found subject with given name\nWhat do you wanna modify?\n1. Subject name\n2. Teaching teacher");
+                                int choiceS = inputHandler.getInt("Your choice");
+                                switch (choiceS) {
+                                    case 1 -> {
+                                        String newSubjectName = inputHandler.getString("Enter new subject name");
+                                        foundSubject.setName(newSubjectName);
+                                        System.out.println("Succesfully changed subject name to: " + newSubjectName);
+                                    }
+                                    case 2 -> {
+                                        System.out.println("1. Choose new teacher from list \n2. Create new teacher");
+                                        int choiceT = inputHandler.getInt("Your choice");
+                                        switch (choiceT) {
+                                            case 1 -> {
+                                                System.out.println();
+                                                int l = 0;
+                                                for (var el : personCollection.getAllTeachers()) {
+                                                    System.out.println(++l + ". " + el.getFirstName() + " " + el.getLastName());
+                                                }
+                                                System.out.println();
+                                                int pc = inputHandler.getInt();
+                                                if (pc - 1 > personCollection.getAllTeachers().size()) {
+                                                    System.err.println("There is not a teacher with that number");
+                                                } else {
+                                                    foundSubject.setTeacher(personCollection.getAllTeachers().get(pc));
+                                                }
+                                            }
+                                            case 2 -> {
+                                                String firstname = inputHandler.getString("Input firstname of the teacher you wanna create");
+                                                String lastname = inputHandler.getString("Input lastname of the teacher you wanna create");
+                                                Teacher t = new Teacher(firstname,lastname,true);
+                                                personCollection.addPerson(t);
+                                                foundSubject.setTeacher(t);
+                                                System.out.println("Succesfully changed teaching teacher for subject " + foundSubject.getName());
+                                            }
+                                            default -> System.err.println("Wrong choice");
+                                        }
+                                    }
+                                }
+                            }
+                            default -> System.err.println("Wrong choice");
                         }
 
                     }
+                    // 4. Add...
                     case 4 -> {
-                        System.out.println("pain.");
+                        System.out.println("1. Add student");
+                        System.out.println("2. Add teacher");
+                        System.out.println("3. Add subject");
+                        System.out.println("4. Add class");
+
+                        int ch = inputHandler.getInt("Your choice");
+
+                        switch (ch) {
+                            case 1 -> {
+                                String studentFistname = inputHandler.getString("Input firstname for student");
+                                String studentLastname = inputHandler.getString("Input lastname for student");
+
+                                System.out.println("1. Choose class for student \n2. Make new class for student");
+                                switch (inputHandler.getInt("Your choice")) {
+                                    // 1. Choose class for student
+                                    case 1 -> {
+                                        int z = 0;
+                                        for (var el:classCollection.getAllClasses()) {
+                                            System.out.println(++z + ". '" + el.getName() + "'");
+                                        }
+                                        int classChoice = inputHandler.getInt("Your choice");
+                                        if(classChoice - 1 > classCollection.getAllClasses().size() && classChoice < 0) {
+                                            System.err.println("There is no class with given number");
+                                        } else {
+                                            personCollection.addPerson(new Student(studentFistname, studentLastname, classCollection.getAllClasses().get(classChoice)));
+                                        }
+                                    }
+                                    // 2. Make new class for student
+                                    case 2 -> {
+
+                                    }
+                                    default -> System.err.println("Wrong choice");
+                                }
+                            }
+                        }
                     }
                     case -1 -> System.out.println("exiting program...");
-                    default -> System.out.println("wrong choice, enter number between 1 - x");
+                    default -> System.out.println("wrong choice, enter number between 1 - 4");
                 }
 
             } while(choice != -1);
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
-
     }
 }

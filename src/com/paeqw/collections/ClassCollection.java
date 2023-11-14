@@ -14,8 +14,8 @@ public class ClassCollection {
     public List<Class> getAllClasses() {
         return allClasses;
     }
-    public void addClass(Class schoolClass) {
-        allClasses.add(schoolClass);
+    public void addClass(Class ...schoolClass) {
+        allClasses.addAll(List.of(schoolClass));
     }
 
     public Class searchClass(String className) throws CouldNotFind {
