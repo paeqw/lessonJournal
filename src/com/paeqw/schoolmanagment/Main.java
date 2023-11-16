@@ -8,6 +8,7 @@ import com.paeqw.collections.SubjectCollection;
 import com.paeqw.enums.DayOfWeek;
 import com.paeqw.models.*;
 import com.paeqw.models.Class;
+import com.paeqw.utils.Adder;
 import com.paeqw.utils.InputHandler;
 import com.paeqw.utils.InputValidator;
 
@@ -21,6 +22,8 @@ public class Main {
             ClassCollection classCollection = new ClassCollection(new ArrayList<>());
             PersonCollection personCollection = new PersonCollection(new ArrayList<>());
             SubjectCollection subjectCollection = new SubjectCollection(new HashSet<>());
+            Adder adder = new Adder(classCollection,personCollection,subjectCollection);
+            adder.add();
 
             Subject s1 = new Subject("Fizyka", new Teacher("exampleteacherfirstname", "exampleteacherlastname", false));
             Subject s2 = new Subject("Matematyka", new Teacher("exampleteacherfirstname", "exampleteacherlastname", false));
