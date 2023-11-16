@@ -11,6 +11,8 @@ import com.paeqw.models.Class;
 import com.paeqw.utils.InputHandler;
 import com.paeqw.utils.InputValidator;
 
+import static com.paeqw.enums.DayOfWeek.*;
+
 public class Main {
     public static void main(String[] args) {
         try {
@@ -81,7 +83,7 @@ public class Main {
                             case 5 -> {
                                 int c = 0;
                                 for (var el:classCollection.getAllClasses()) {
-                                    System.out.println(++c + ". " + el.getName()+ " - " + el.getSupervisingTeacher().getFirstName() + el.getSupervisingTeacher().getLastName());
+                                    System.out.println(++c + ". " + el.getName()+ " - supervisor - " + el.getSupervisingTeacher().getFirstName() + " " +  el.getSupervisingTeacher().getLastName());
                                 }
                             }
                             // 6. Show lesson plan for a given class for a given day
@@ -169,10 +171,6 @@ public class Main {
                                 }
                             }
                         }
-//arr.add(new Pacjet("Imie", "nazwisko"))
-
-                        //public void dodaj(Room ...room) {lista.add(room)}
-                        //surgeon.dodaj({new Room("13"), new Room(), new Room})
                     }
                     // 3. Modify...
                     case 3 -> {
@@ -328,7 +326,7 @@ public class Main {
                             case 1 -> {
                                 String studentFistname = inputHandler.getString("Input firstname for student");
                                 String studentLastname = inputHandler.getString("Input lastname for student");
-
+                                Class c;
                                 System.out.println("1. Choose class for student \n2. Make new class for student");
                                 switch (inputHandler.getInt("Your choice")) {
                                     // 1. Choose class for student
@@ -346,7 +344,134 @@ public class Main {
                                     }
                                     // 2. Make new class for student
                                     case 2 -> {
-
+                                        System.out.println("Creating new class for student");
+                                        String createClassName = inputHandler.getString("Input name for new class");
+                                        System.out.println("You also need a supervising teacher");
+                                        System.out.println("1. Choose teacher from list\n 2. Create new teacher");
+                                        Teacher teacher;
+                                        switch (inputHandler.getInt("Your choice")) {
+                                            // 1. Choose teacher from list
+                                            case 1 -> {
+                                                int t = 0;
+                                                for (var el : personCollection.getAllNotSupervisingTeachers()) {
+                                                    System.out.println(++t + ". " + el.getFirstName() + " " + el.getLastName());
+                                                }
+                                                int chosenTeacher = inputHandler.getInt("Your choice");
+                                                if (chosenTeacher < 0 && chosenTeacher -1 > personCollection.getAllNotSupervisingTeachers().size()) {
+                                                    System.err.println("There is no teacher with given number");
+                                                } else {
+                                                    teacher = personCollection.getAllNotSupervisingTeachers().get(chosenTeacher-1);
+                                                    Map<DayOfWeek,Map<Integer,Subject>> emptyMap = new HashMap<>();
+                                                    c = new Class(createClassName,teacher,emptyMap);
+                                                    classCollection.addClass(c);
+                                                    System.out.println("Created new class with empty lesson plan.");
+                                                    personCollection.addPerson(new Student(studentFistname,studentLastname,c));
+                                                    System.out.println("Created student");
+                                                }
+                                            }
+                                            // 2. Create new teacher
+                                            case 2 -> {
+                                                String newTeacherFirstname = inputHandler.getString("Input firstname for the new teacher");
+                                                String newTeacherLastname = inputHandler.getString("Input lastname");
+                                                Map<DayOfWeek,Map<Integer,Subject>> emptyMap = new HashMap<>();
+                                                Teacher teacher1 = new Teacher(newTeacherFirstname,newTeacherLastname,true);
+                                                c = new Class(createClassName, teacher1, emptyMap);
+                                                System.out.println("Created new class with empty lesson plan.");
+                                                classCollection.addClass(c);
+                                                personCollection.addPerson(new Student(studentFistname,studentLastname,c));
+                                                System.out.println("Created student");
+                                            }
+                                            default -> System.err.println("Wrong choice");
+                                        }
+                                    }
+                                    default -> System.err.println("Wrong choice");
+                                }
+                            }
+                            // 2. Add teacher
+                            case 2 -> {
+                                String teacherFirstname = inputHandler.getString("Input firstname for teacher");
+                                String teacherLastname = inputHandler.getString("Input lastname for teacher");
+                                switch (inputHandler.getString("Is he a supervisor (y/n)")) {
+                                    case "y" -> {
+                                        personCollection.addPerson(new Teacher(teacherFirstname,teacherLastname,true));
+                                        System.out.println("Added new teacher");
+                                    }
+                                    case "n" -> {
+                                        personCollection.addPerson(new Teacher(teacherFirstname,teacherLastname,false));
+                                        System.out.println("Added new teacher");
+                                    }
+                                    default -> System.err.println("Wrong choice");
+                                }
+                            }
+                            // 3. Add subject
+                            case 3 -> {
+                                String subjectName = inputHandler.getString("Enter subject name");
+                                System.out.println("1. Choose teacher from list\n 2. Create new teacher");
+                                switch (inputHandler.getInt("Your choice")) {
+                                    case 1 -> {
+                                        int c = 0;
+                                        for (var el : personCollection.getAllTeachers()) {
+                                            System.out.println(++c + ". " + el.getFirstName() + " " + el.getLastName());
+                                        }
+                                        int chosenTeacher = inputHandler.getInt("Your choice");
+                                        if (chosenTeacher < 0 && chosenTeacher -1 > personCollection.getAllNotSupervisingTeachers().size()) {
+                                            System.err.println("There is no teacher with given number");
+                                        } else {
+                                            Teacher t = personCollection.getAllTeachers().get(chosenTeacher);
+                                            subjectCollection.addSubject(new Subject(subjectName,t));
+                                        }
+                                    }
+                                    case 2 -> {
+                                        String teacherFirstname = inputHandler.getString("Input firstname for teacher");
+                                        String teacherLastname = inputHandler.getString("Input lastname for teacher");
+                                        switch (inputHandler.getString("Is he a supervisor (y/n)")) {
+                                            case "y" -> {
+                                                subjectCollection.addSubject(new Subject(subjectName, new Teacher(teacherFirstname,teacherLastname,true)));
+                                                System.out.println("Added new subject");
+                                            }
+                                            case "n" -> {
+                                                subjectCollection.addSubject(new Subject(subjectName, new Teacher(teacherFirstname,teacherLastname,false)));
+                                                System.out.println("Added new subject");
+                                            }
+                                            default -> System.err.println("Wrong choice");
+                                        }
+                                    }
+                                }
+                            }
+                            // 4. Add class
+                            case 4 -> {
+                                String createClassName = inputHandler.getString("Input name for new class");
+                                System.out.println("You also need a supervising teacher");
+                                System.out.println("1. Choose teacher from list\n 2. Create new teacher");
+                                Teacher teacher;
+                                Class c;
+                                switch (inputHandler.getInt("Your choice")) {
+                                    // 1. Choose teacher from list
+                                    case 1 -> {
+                                        int t = 0;
+                                        for (var el : personCollection.getAllNotSupervisingTeachers()) {
+                                            System.out.println(++t + ". " + el.getFirstName() + " " + el.getLastName());
+                                        }
+                                        int chosenTeacher = inputHandler.getInt("Your choice");
+                                        if (chosenTeacher < 0 && chosenTeacher -1 > personCollection.getAllNotSupervisingTeachers().size()) {
+                                            System.err.println("There is no teacher with given number");
+                                        } else {
+                                            teacher = personCollection.getAllNotSupervisingTeachers().get(chosenTeacher-1);
+                                            Map<DayOfWeek,Map<Integer,Subject>> emptyMap = new HashMap<>();
+                                            c = new Class(createClassName,teacher,emptyMap);
+                                            classCollection.addClass(c);
+                                            System.out.println("Created new class with empty lesson plan.");
+                                        }
+                                    }
+                                    // 2. Create new teacher
+                                    case 2 -> {
+                                        String newTeacherFirstname = inputHandler.getString("Input firstname for the new teacher");
+                                        String newTeacherLastname = inputHandler.getString("Input lastname");
+                                        Map<DayOfWeek,Map<Integer,Subject>> emptyMap = new HashMap<>();
+                                        Teacher teacher1 = new Teacher(newTeacherFirstname,newTeacherLastname,true);
+                                        c = new Class(createClassName, teacher1, emptyMap);
+                                        System.out.println("Created new class with empty lesson plan.");
+                                        classCollection.addClass(c);
                                     }
                                     default -> System.err.println("Wrong choice");
                                 }
