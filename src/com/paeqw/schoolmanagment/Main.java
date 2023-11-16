@@ -25,12 +25,6 @@ public class Main {
             Adder adder = new Adder(classCollection,personCollection,subjectCollection);
             adder.add();
 
-            Subject s1 = new Subject("Fizyka", new Teacher("exampleteacherfirstname", "exampleteacherlastname", false));
-            Subject s2 = new Subject("Matematyka", new Teacher("exampleteacherfirstname", "exampleteacherlastname", false));
-            Subject s3 = new Subject("Polski", new Teacher("exampleteacherfirstname", "exampleteacherlastname", false));
-
-            subjectCollection.addSubject(new Subject[]{s1, s2, s3});
-
             int choice;
             do {
                 System.out.println("1. Show...");
@@ -117,18 +111,14 @@ public class Main {
                         System.out.println("1. Delete a person");
                         System.out.println("2. Delete class");
                         System.out.println("3. Delete subject");
-
                         int x = inputHandler.getInt("Your choice");
                         System.out.println();
-
                         switch (x) {
                             // 1. Delete a person
                             case 1 -> {
                                 System.out.println("\n" + "Deleting a person...");
-
                                 String firstname = inputHandler.getString("Enter first name");
                                 String lastname = inputHandler.getString("Enter last name");
-
                                 System.out.println("You are going to delete person: " + firstname+ " " + lastname);
                                 String y = inputHandler.getString("Are you sure? (y/n)");
                                 switch (y.toLowerCase()) {
@@ -143,7 +133,6 @@ public class Main {
                             // 2. Delete class
                             case 2 -> {
                                 System.out.println("\n" + "Deleting a class...");
-
                                 String className = inputHandler.getString("Enter class name");
                                 System.out.println("You are going to delete class with name '"+ className + "'");
                                 String y = inputHandler.getString("Are you sure? (y/n)");
@@ -159,9 +148,7 @@ public class Main {
                             // 3. Delete subject
                             case 3 -> {
                                 System.out.println("\n" + "Deleting a subject...");
-
                                 String subjectName = inputHandler.getString("Enter subject name");
-
                                 System.out.println("You are going to delete subject with name '" + subjectName + "'");
                                 String y = inputHandler.getString("Are you sure? (y/n)");
                                 switch (y.toLowerCase()) {
@@ -180,23 +167,17 @@ public class Main {
                         System.out.println("1. Modify person");
                         System.out.println("2. Modify class");
                         System.out.println("3. Modify subject");
-
                         int x = inputHandler.getInt("Your choice");
                         System.out.println();
-
                         switch (x) {
                             // 1. Modify person
                             case 1 -> {
                                 String firstname = inputHandler.getString("Input firstname of the person you wanna modify");
                                 String lastname = inputHandler.getString("Input lastname of the person you wanna modify");
-
                                 Person foundPerson = personCollection.searchPerson(firstname,lastname);
                                 System.out.println("Person you wanna modify is :" + firstname + " " + lastname);
-
                                 System.out.println("What do you wanna modify? \n 1. Firstname, lastname \n 2. Firstname \n 3. Lastname");
-
                                 int ch = inputHandler.getInt("Your choice");
-
                                 switch (ch) {
                                     case 1 -> {
                                         String newFirstname = inputHandler.getString("New firstname is");
@@ -217,14 +198,11 @@ public class Main {
                                     }
                                     default -> System.err.println("Wrong choice");
                                 }
-
                             }
                             // 2. Modify class
                             case 2 -> {
                                 String className = inputHandler.getString("Input name of the class you want to modify");
-
                                 Class classFound = classCollection.searchClass(className);
-
                                 System.out.println("Class you wanna modify is: " + className);
                                 System.out.println("What do you wanna modify? \n 1. Class name \n 2. Supervising teacher");
                                 int c = inputHandler.getInt("Your choice");
@@ -255,7 +233,7 @@ public class Main {
                                             case 2 -> {
                                                 String firstname = inputHandler.getString("Input firstname of the teacher you wanna create");
                                                 String lastname = inputHandler.getString("Input lastname of the teacher you wanna create");
-                                                Teacher t = new Teacher(firstname,lastname,true);
+                                                Teacher t = new Teacher(firstname, lastname, true);
                                                 personCollection.addPerson(t);
                                                 classFound.setSupervisingTeacher(t);
                                                 System.out.println("Succesfully changed supervising teacher for class " + classFound.getName());
@@ -265,14 +243,11 @@ public class Main {
                                     }
                                     default -> System.err.println("Wrong choice");
                                 }
-
                             }
                             // 3. Modify subject
                             case 3 -> {
                                 String subjectName = inputHandler.getString("Enter name of the subject you wanna modify");
-
                                 Subject foundSubject = subjectCollection.searchSubjectByName(subjectName);
-
                                 System.out.println("Succesfully found subject with given name\nWhat do you wanna modify?\n1. Subject name\n2. Teaching teacher");
                                 int choiceS = inputHandler.getInt("Your choice");
                                 switch (choiceS) {
@@ -314,7 +289,6 @@ public class Main {
                             }
                             default -> System.err.println("Wrong choice");
                         }
-
                     }
                     // 4. Add...
                     case 4 -> {
@@ -322,9 +296,7 @@ public class Main {
                         System.out.println("2. Add teacher");
                         System.out.println("3. Add subject");
                         System.out.println("4. Add class");
-
                         int ch = inputHandler.getInt("Your choice");
-
                         switch (ch) {
                             case 1 -> {
                                 String studentFistname = inputHandler.getString("Input firstname for student");
@@ -484,7 +456,6 @@ public class Main {
                     case -1 -> System.out.println("exiting program...");
                     default -> System.out.println("wrong choice, enter number between 1 - 4");
                 }
-
             } while(choice != -1);
         } catch (Exception e) {
             System.err.println(e.getMessage());
