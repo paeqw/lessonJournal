@@ -62,13 +62,14 @@ public class Adder {
             Map<DayOfWeek,Map<Integer,Subject>> mapMap = new HashMap<>();
             for (int j = 0; j < 5; j++) {
                 Map<Integer,Subject> map = new HashMap<>();
-                for (int k = 1; k < 5; k++) {
+                for (int k = 1; k < 9; k++) {
                     map.put(k,subjectList.get(new Random().nextInt(5 - 1 + 1) + 1));
                 }
                 mapMap.put(dayOfWeeksList.get(j),map);
             }
             cos.add(mapMap);
         }
+
         Class c1 = new Class("5bt", mw, cos.get(0));
         Class c2 = new Class("4bt", gj, cos.get(1));
         Class c3 = new Class("3bt", pm, cos.get(2));

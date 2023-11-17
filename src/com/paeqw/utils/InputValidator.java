@@ -12,10 +12,13 @@ public class InputValidator {
 
     public DayOfWeek getDayOfWeek() {
         InputHandler ih = new InputHandler();
-        String value = ih.getString("Enter day of the week");
+        String value = ih.getString("Enter day of the week (Monday - Friday)");
         String[] validValue = {"Monday","Tuesday", "Wednesday", "Thursday", "Friday"};
         for (var el:validValue) {
-            if (el.equalsIgnoreCase(value)) return DayOfWeek.valueOf(value);
+            if (el.equalsIgnoreCase(value)) {
+                value = value.substring(0, 1).toUpperCase() + value.substring(1).toLowerCase();
+                return DayOfWeek.valueOf(value);
+            }
         }
         throw new IllegalArgumentException("this word is not a day of school week (Mon-Fri)");
     }
