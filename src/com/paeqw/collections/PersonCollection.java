@@ -4,6 +4,8 @@ import com.paeqw.exceptions.CouldNotFind;
 import com.paeqw.models.Person;
 import com.paeqw.models.Student;
 import com.paeqw.models.Teacher;
+import com.paeqw.utils.Sorter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +21,7 @@ public class PersonCollection {
     }
     public void addPerson(Person ...person) {
         allPersons.addAll(List.of(person));
+        Sorter.sort(allPersons);
     }
 
     public Person searchPerson(String firstname,String lastname) throws CouldNotFind {
