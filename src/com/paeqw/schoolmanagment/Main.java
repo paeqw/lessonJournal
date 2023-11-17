@@ -220,7 +220,7 @@ public class Main {
                                             case 1 -> {
                                                 System.out.println();
                                                 int l = 0;
-                                                if(personCollection.getAllNotSupervisingTeachers().isEmpty()) {
+                                                if(!personCollection.getAllNotSupervisingTeachers().isEmpty()) {
                                                     System.err.println(ConsoleColors.paint("There is no teacher who is not a supervisor",1));
                                                 } else {
                                                     for (var el : personCollection.getAllNotSupervisingTeachers()) {
@@ -335,7 +335,7 @@ public class Main {
                                             // 1. Choose teacher from list
                                             case 1 -> {
                                                 int t = 0;
-                                                if(personCollection.getAllNotSupervisingTeachers().isEmpty()) {
+                                                if(!personCollection.getAllNotSupervisingTeachers().isEmpty()) {
                                                     for (var el : personCollection.getAllNotSupervisingTeachers()) {
                                                         System.out.println(++t + ". " + el.getFirstName() + " " + el.getLastName());
                                                     }
@@ -433,7 +433,7 @@ public class Main {
                                     // 1. Choose teacher from list
                                     case 1 -> {
                                         int t = 0;
-                                        if(personCollection.getAllNotSupervisingTeachers().isEmpty()) {
+                                        if(!personCollection.getAllNotSupervisingTeachers().isEmpty()) {
                                         for (var el : personCollection.getAllNotSupervisingTeachers()) {
                                                 System.out.println(++t + ". " + el.getFirstName() + " " + el.getLastName());
                                             }
