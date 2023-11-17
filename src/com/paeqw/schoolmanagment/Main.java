@@ -220,15 +220,20 @@ public class Main {
                                             case 1 -> {
                                                 System.out.println();
                                                 int l = 0;
-                                                for (var el : personCollection.getAllTeachers()) {
-                                                    System.out.println(++l + ". " + el.getFirstName() + " " + el.getLastName());
-                                                }
-                                                System.out.println();
-                                                int pc = inputHandler.getInt();
-                                                if (pc - 1 > personCollection.getAllTeachers().size()) {
-                                                    System.err.println(ConsoleColors.paint("There is not a teacher with that number",1));
+                                                if(personCollection.getAllNotSupervisingTeachers().isEmpty()) {
+                                                    System.err.println(ConsoleColors.paint("There is no teacher who is not a supervisor",1));
                                                 } else {
-                                                    classFound.setSupervisingTeacher(personCollection.getAllNotSupervisingTeachers().get(pc));
+                                                    for (var el : personCollection.getAllNotSupervisingTeachers()) {
+                                                        System.out.println(++l + ". " + el.getFirstName() + " " + el.getLastName());
+                                                    }
+
+                                                    System.out.println();
+                                                    int pc = inputHandler.getInt();
+                                                    if (pc - 1 > personCollection.getAllNotSupervisingTeachers().size()) {
+                                                        System.err.println(ConsoleColors.paint("There is not a teacher with that number",1));
+                                                    } else {
+                                                        classFound.setSupervisingTeacher(personCollection.getAllNotSupervisingTeachers().get(pc));
+                                                    }
                                                 }
                                             }
                                             case 2 -> {
@@ -312,7 +317,7 @@ public class Main {
                                             System.out.println(++z + ". '" + el.getName() + "'");
                                         }
                                         int classChoice = inputHandler.getInt("Your choice");
-                                        if(classChoice - 1 > classCollection.getAllClasses().size() && classChoice < 0) {
+                                        if(classChoice - 1 > classCollection.getAllClasses().size() && classChoice > 0) {
                                             System.err.println(ConsoleColors.paint("There is no class with given number",1));
                                         } else {
                                             personCollection.addPerson(new Student(studentFistname, studentLastname, classCollection.getAllClasses().get(classChoice)));
@@ -330,20 +335,22 @@ public class Main {
                                             // 1. Choose teacher from list
                                             case 1 -> {
                                                 int t = 0;
-                                                for (var el : personCollection.getAllNotSupervisingTeachers()) {
-                                                    System.out.println(++t + ". " + el.getFirstName() + " " + el.getLastName());
-                                                }
-                                                int chosenTeacher = inputHandler.getInt("Your choice");
-                                                if (chosenTeacher < 0 && chosenTeacher -1 > personCollection.getAllNotSupervisingTeachers().size()) {
-                                                    System.err.println(ConsoleColors.paint("There is no teacher with given number",1));
-                                                } else {
-                                                    teacher = personCollection.getAllNotSupervisingTeachers().get(chosenTeacher-1);
-                                                    Map<DayOfWeek,Map<Integer,Subject>> emptyMap = new HashMap<>();
-                                                    c = new Class(createClassName,teacher,emptyMap);
-                                                    classCollection.addClass(c);
-                                                    System.out.println("Created new class with empty lesson plan.");
-                                                    personCollection.addPerson(new Student(studentFistname,studentLastname,c));
-                                                    System.out.println("Created student");
+                                                if(personCollection.getAllNotSupervisingTeachers().isEmpty()) {
+                                                    for (var el : personCollection.getAllNotSupervisingTeachers()) {
+                                                        System.out.println(++t + ". " + el.getFirstName() + " " + el.getLastName());
+                                                    }
+                                                    int chosenTeacher = inputHandler.getInt("Your choice");
+                                                    if (chosenTeacher > 0 && chosenTeacher -1 > personCollection.getAllNotSupervisingTeachers().size()) {
+                                                        System.err.println(ConsoleColors.paint("There is no teacher with given number",1));
+                                                    } else {
+                                                        teacher = personCollection.getAllNotSupervisingTeachers().get(chosenTeacher - 1);
+                                                        Map<DayOfWeek, Map<Integer, Subject>> emptyMap = new HashMap<>();
+                                                        c = new Class(createClassName, teacher, emptyMap);
+                                                        classCollection.addClass(c);
+                                                        System.out.println("Created new class with empty lesson plan.");
+                                                        personCollection.addPerson(new Student(studentFistname, studentLastname, c));
+                                                        System.out.println("Created student");
+                                                    }
                                                 }
                                             }
                                             // 2. Create new teacher
@@ -426,18 +433,20 @@ public class Main {
                                     // 1. Choose teacher from list
                                     case 1 -> {
                                         int t = 0;
+                                        if(personCollection.getAllNotSupervisingTeachers().isEmpty()) {
                                         for (var el : personCollection.getAllNotSupervisingTeachers()) {
-                                            System.out.println(++t + ". " + el.getFirstName() + " " + el.getLastName());
-                                        }
-                                        int chosenTeacher = inputHandler.getInt("Your choice");
-                                        if (chosenTeacher < 0 && chosenTeacher -1 > personCollection.getAllNotSupervisingTeachers().size()) {
-                                            System.err.println(ConsoleColors.paint("There is no teacher with given number",1));
-                                        } else {
-                                            teacher = personCollection.getAllNotSupervisingTeachers().get(chosenTeacher-1);
-                                            Map<DayOfWeek,Map<Integer,Subject>> emptyMap = new HashMap<>();
-                                            c = new Class(createClassName,teacher,emptyMap);
-                                            classCollection.addClass(c);
-                                            System.out.println("Created new class with empty lesson plan.");
+                                                System.out.println(++t + ". " + el.getFirstName() + " " + el.getLastName());
+                                            }
+                                            int chosenTeacher = inputHandler.getInt("Your choice");
+                                            if (chosenTeacher < 0 && chosenTeacher -1 > personCollection.getAllNotSupervisingTeachers().size()) {
+                                                System.err.println(ConsoleColors.paint("There is no teacher with given number",1));
+                                            } else {
+                                                teacher = personCollection.getAllNotSupervisingTeachers().get(chosenTeacher - 1);
+                                                Map<DayOfWeek, Map<Integer, Subject>> emptyMap = new HashMap<>();
+                                                c = new Class(createClassName, teacher, emptyMap);
+                                                classCollection.addClass(c);
+                                                System.out.println("Created new class with empty lesson plan.");
+                                            }
                                         }
                                     }
                                     // 2. Create new teacher
