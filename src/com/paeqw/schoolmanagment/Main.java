@@ -220,7 +220,7 @@ public class Main {
                                             case 1 -> {
                                                 System.out.println();
                                                 int l = 0;
-                                                if(!personCollection.getAllNotSupervisingTeachers().isEmpty()) {
+                                                if(personCollection.getAllNotSupervisingTeachers().isEmpty()) {
                                                     System.err.println(ConsoleColors.paint("There is no teacher who is not a supervisor",1));
                                                 } else {
                                                     for (var el : personCollection.getAllNotSupervisingTeachers()) {
@@ -352,6 +352,9 @@ public class Main {
                                                         System.out.println("Created student");
                                                     }
                                                 }
+                                                else {
+                                                    System.err.println(ConsoleColors.paint("There is no teacher who is not a supervisor",1));
+                                                }
                                             }
                                             // 2. Create new teacher
                                             case 2 -> {
@@ -447,6 +450,9 @@ public class Main {
                                                 classCollection.addClass(c);
                                                 System.out.println("Created new class with empty lesson plan.");
                                             }
+                                        }
+                                        else {
+                                            System.err.println(ConsoleColors.paint("There is no teacher who is not a supervisor",1));
                                         }
                                     }
                                     // 2. Create new teacher
